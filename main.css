@@ -6,11 +6,8 @@
 
 html, body {
     font-family: monospace;
-<<<<<<< HEAD:styles.css
 /*    background: black;*/
-=======
     background-color: black;
->>>>>>> a7b22dbf58a3c488cb7b730a9979a2d8113c3f38:main.css
 }
 
 .snake {
