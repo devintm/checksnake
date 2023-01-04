@@ -1,29 +1,23 @@
 {
-<<<<<<< HEAD
-  "devDependencies": {
-    "@types/node": "^18.11.18",
-    "typescript": "^4.9.4"
-  },
-  "scripts": {
-    "build": "npm run tsc",
-    "tsc": "tsc"
-=======
   "name": "checksnake",
   "version": "1.0.0",
   "description": "<h4 align=\"center\">\r     <img src=\"https://github.com/flowforfrank/checksnake/blob/master/hero.jpg?raw=true\" alt=\"Snake made out of checkboxes\" /><br />\r     You can read the written tutorial about the implementation on <strong><a href=\"https://www.webtips.dev/how-i-made-a-snake-game-out-of-checkboxes\">webtips.dev</a></strong> 🐍\r </h4>",
   "main": "index.js",
   "scripts": {
     "tailwind:css": "postcss ./public/tailwind.css -o ./public/styles.css",
-    "dev": "npm run tailwind:css ",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm run tailwind:css && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sasirekha08/checksnake.git"
+    "url": "git+https://github.com/devintm/checksnake.git"
   },
   "author": "",
   "license": "",
   "devDependencies": {
+    "@types/node": "^18.11.18",
+    "typescript": "^4.9.4",
     "nodemon": "^2.0.20",
     "tailwindcss": "^3.2.4"
   },
@@ -32,6 +26,5 @@
     "express": "^4.18.2",
     "postcss": "^8.4.20",
     "postcss-cli": "^10.1.0"
->>>>>>> a7b22dbf58a3c488cb7b730a9979a2d8113c3f38
   }
 }
