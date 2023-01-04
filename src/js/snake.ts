@@ -1,24 +1,24 @@
-const rows = document.querySelectorAll('.row');
+const rows: NodeListOf<Element> = document.querySelectorAll('.row');
 
-const getItemAt = (x, y) => rows[y - 1].children[x - 1];
-const checkItemAt = (x, y) => getItemAt(x, y).checked = true;
-const unCheckItemAt = (x, y) => getItemAt(x, y).checked = false;
+const getItemAt = (x: number, y: number) => rows[y - 1].children[x - 1] as HTMLInputElement;
+const checkItemAt = (x: number, y: number) => getItemAt(x, y).checked = true;
+const unCheckItemAt = (x: number, y: number) => getItemAt(x, y).checked = false;
 
-const placeAppleAt = (x, y) => {
+const placeAppleAt = (x: number, y: number) => {
     getItemAt(x, y).type = 'radio';
     checkItemAt(x, y);
 }
 
-const removeAppleAt = (x, y) => {
+const removeAppleAt = (x: number, y: number) => {
     getItemAt(x, y).type = 'checkbox';
     unCheckItemAt(x, y);
 }
 
 const getApplePosition = () => {
-    const position = [1, 1];
+    const position: Coordinates = [1, 1];
 
     rows.forEach((row, rowIndex) => {
-        Array.from(row.children).forEach((input, inputIndex) => {
+        Array.from(row.children).forEach((input: HTMLInputElement, inputIndex) => {
             if (input.type === 'radio') {
                 position[0] = inputIndex + 1;
                 position[1] = rowIndex + 1;
@@ -30,10 +30,10 @@ const getApplePosition = () => {
 }
 
 const getRandomPosition = () => {
-    const availablePositions = [];
+    const availablePositions: Coordinates[] = [];
 
     rows.forEach((row, rowIndex) => {
-        Array.from(row.children).forEach((input, inputIndex) => {
+        Array.from(row.children).forEach((input: HTMLInputElement, inputIndex) => {
             if (input.type === 'checkbox' && input.checked === false) {
                 availablePositions.push([inputIndex + 1, rowIndex + 1]);
             }
@@ -46,19 +46,19 @@ const getRandomPosition = () => {
 }
 
 const increaseScore = () => {
-    const score = document.querySelector('.score');
+    const score: HTMLElement = document.querySelector('.score');
 
-    currentScore = parseInt(score.innerText, 10);
-    score.innerText = currentScore + 1;
+    const currentScore: number = parseInt(score.innerText, 10);
+    score.innerText = String(currentScore + 1);
 }
 
 const handleInput = () => {
     document.addEventListener('keydown', e => {
-        switch(e.keyCode) {
-            case key.arrowUp:    movingDirection = movingDirection === 'down' ? 'down' : 'up'; break;
-            case key.arrowDown:  movingDirection = movingDirection === 'up' ? 'up' : 'down'; break;
-            case key.arrowLeft:  movingDirection = movingDirection === 'right' ? 'right' : 'left'; break;
-            case key.arrowRight: movingDirection = movingDirection === 'left' ? 'left' : 'right'; break;
+        switch(e.code) {
+            case "ArrowUp":    movingDirection = movingDirection === 'down' ? 'down' : 'up'; break;
+            case "ArrowDown":  movingDirection = movingDirection === 'up' ? 'up' : 'down'; break;
+            case "ArrowLeft":  movingDirection = movingDirection === 'right' ? 'right' : 'left'; break;
+            case "ArrowRight": movingDirection = movingDirection === 'left' ? 'left' : 'right'; break;
         }
 
         if (moveInterval === undefined) {
@@ -69,7 +69,7 @@ const handleInput = () => {
     });
 }
 
-const playWave = head => {
+const playWave = (head: [number, number]) => {
     const checkboxes = [];
 
     for (let x = 1; x <= worldSize; x++) {
@@ -88,16 +88,16 @@ const playWave = head => {
     });
 }
 
-const move = direction => {
-    const applePosition = getApplePosition();
-    const head = [...snake[0]];
-    const tail = [...snake[snake.length - 1]];
+const move = (direction: Direction) => {
+    const applePosition: [number, number] = getApplePosition();
+    const head: [number, number] = [...snake[0]];
+    const tail: [number, number] = [...snake[snake.length - 1]];
 
     const updateSnake = () => {
         snake.unshift(head);
         snake.pop();
 
-        snake.forEach(snakePart => checkItemAt(...snakePart));
+        snake.forEach(snakePart => checkItemAt(snakePart[0], snakePart[1]));
     }
 
     switch (direction) {
@@ -107,7 +107,8 @@ const move = direction => {
         case 'right': head[0] = head[0] === worldSize ? 1 : head[0] + 1; break;
     }
 
-    if (getItemAt(...head).type === 'checkbox' && getItemAt(...head).checked) {
+    let checkBox = getItemAt(...head);
+    if (checkBox.type === 'checkbox' && checkBox.checked) {
         document.querySelector('h1').innerText = 'Game Over...';
         document.querySelectorAll('input').forEach(input => input.disabled = true);
 
